@@ -62,13 +62,13 @@ const start = async () => {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-    app.listen(5050, () => {
-        console.log(`Сервер запущен на хосту http://127.0.0.1:5050`);
-    });
+
 };
 
 start();
-
+app.listen(5050, () => {
+    console.log(`Сервер запущен на хосту http://127.0.0.1:5050`);
+});
 
 
 
