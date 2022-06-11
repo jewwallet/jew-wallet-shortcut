@@ -66,7 +66,7 @@ const start = async () => {
 };
 
 start();
-app.listen(5050, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log(`Сервер запущен на хосту http://127.0.0.1:5050`);
 });
 
