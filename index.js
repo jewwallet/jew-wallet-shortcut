@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const Link = require('../models/Link.js');
+const Link = require('./models/Link.js');
 
 const app = express();
 
