@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const mongoose = require("mongoose");
 const Link = require('../models/Link.js');
 
@@ -13,7 +12,7 @@ app.get('/:link', async (req, res) => {
         const findedLink = (await Link.find({'_id': req.params.link}))[0];
 
         if (findedLink) {
-           const originalLink = findedLink[0].original;
+           const originalLink = findedLink.original;
 
            const originalLinkURL = new URL(originalLink);
 
