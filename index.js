@@ -6,6 +6,51 @@ const app = express();
 
 app.use(express.json());
 
+const postbacks = new Set();
+
+
+app.get('/postback/moderation', (req, res) => {
+    const {workerId, offerId} = req.query;
+
+    if(!workerId || !offerId) {
+        return res.status(400);
+    }
+
+    postbacks.add({workerId, offerId, type: 0});
+
+    return res.end();
+});
+
+app.get('/postback/approve', (req, res) => {
+    const {workerId, offerId} = req.query;
+
+    if(!workerId || !offerId) {
+        return res.status(400);
+    }
+
+    postbacks.add({workerId, offerId, type: 1});
+
+    return res.end();
+})
+
+app.get('/postback/decline', (req, res) => {
+    const {workerId, offerId} = req.query;
+
+    if(!workerId || !offerId) {
+        return res.status(400);
+    }
+
+    postbacks.add({workerId, offerId, type: -1});
+
+    return res.end();
+});
+
+app.get('/postback/information', (req, res) => {
+    res.json(Array.from(postbacks));
+    postbacks.clear();
+    return;
+});
+
 app.get('/:link', async (req, res) => {
 
     try {
@@ -67,7 +112,7 @@ const start = async () => {
 
 start();
 app.listen(process.env.PORT || 5000, () => {
-    console.log(`Сервер запущен на хосту http://127.0.0.1:5050`);
+    console.log(`Сервер запущен на хосту http://127.0.0.1:5000`);
 });
 
 
