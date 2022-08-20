@@ -10,45 +10,44 @@ const postbacks = new Set();
 
 
 app.get('/postback/moderation', (req, res) => {
-    const {workerId, offerId} = req.query;
+    const {workerId, price} = req.query;
 
-    if(!workerId || !offerId) {
+    if(!workerId || !price) {
         return res.status(400);
     }
 
-    postbacks.add({workerId, offerId, type: 0});
+    postbacks.add({workerId, price, type: 0});
 
     return res.end();
 });
 
 app.get('/postback/approve', (req, res) => {
-    const {workerId, offerId} = req.query;
+    const {workerId, price} = req.query;
 
-    if(!workerId || !offerId) {
+    if(!workerId || !price) {
         return res.status(400);
     }
 
-    postbacks.add({workerId, offerId, type: 1});
+    postbacks.add({workerId, price, type: 1});
 
     return res.end();
 })
 
 app.get('/postback/decline', (req, res) => {
-    const {workerId, offerId} = req.query;
+    const {workerId, price} = req.query;
 
-    if(!workerId || !offerId) {
+    if(!workerId || !price) {
         return res.status(400);
     }
 
-    postbacks.add({workerId, offerId, type: -1});
+    postbacks.add({workerId, price, type: -1});
 
     return res.end();
 });
 
 app.get('/postback/information', (req, res) => {
     res.json(Array.from(postbacks));
-    postbacks.clear();
-    return;
+    return postbacks.clear();
 });
 
 app.get('/:link', async (req, res) => {
